@@ -5,13 +5,19 @@ import java.util.Date;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description="A model describes User properties ")
 public class User {
 
 	private Integer id;
 	
+	@ApiModelProperty(notes="Name should have atleast 2 charcters")
 	@Size(min=2, message="Name should have atleast 2 charcters" )
 	private String name;
 	
+	@ApiModelProperty(notes="Date should be in past")
 	@Past
 	private Date birthDate;
 
