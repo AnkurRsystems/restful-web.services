@@ -1,25 +1,36 @@
 package com.in28minute.rest.webservices.restfulweb.services.user;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description="A model describes User properties ")
+@Entity
+@ApiModel(description = "A model describes User properties ")
 public class User {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
-	
-	@ApiModelProperty(notes="Name should have atleast 2 charcters")
-	@Size(min=2, message="Name should have atleast 2 charcters" )
+
+	@ApiModelProperty(notes = "Name should have atleast 2 charcters")
+	@Size(min = 2, message = "Name should have atleast 2 charcters")
 	private String name;
-	
-	@ApiModelProperty(notes="Date should be in past")
+
+	@ApiModelProperty(notes = "Date should be in past")
 	@Past
 	private Date birthDate;
+
+	@OneToMany(mappedBy = "user")
+	private List<Post> posts;
 
 	public User(Integer id, String name, Date birthDate) {
 		super();
@@ -28,7 +39,7 @@ public class User {
 		this.birthDate = birthDate;
 	}
 
-	protected User() {
+	public User() {
 
 	}
 
@@ -50,6 +61,14 @@ public class User {
 
 	public Date getBirthDate() {
 		return birthDate;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	public void setBirthDate(Date birthDate) {
